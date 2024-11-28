@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 const axiosInstance = axios.create({
@@ -11,7 +12,9 @@ axiosInstance.interceptors.response.use(
     if (error.response) {
       const { status } = error.response;
       if (status === 401 || status === 403) {
-        window.location.href = '/'; // Redirects to login page
+        if(window.location.pathname !== '/'){
+          window.location.href = '/'; // Redirects to login page
+        }
       }
     }
     return Promise.reject(error);
