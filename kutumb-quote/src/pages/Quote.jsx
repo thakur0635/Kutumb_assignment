@@ -11,7 +11,7 @@ const QuotePage = () => {
   const fetchQuotes = async () => {
     if (!qoutesLeft) return;
     const token = localStorage.getItem("token"); // for API authentication
-    const response = await getQuotesList(token, 5, offset);
+    const response = await getQuotesList(token, 10, offset);
     const newQuotes = response?.data;
     if (newQuotes.length === 0) setQoutesLeft(false);
     setQuotes((prev) => {
@@ -24,7 +24,7 @@ const QuotePage = () => {
         return prev;
       }
     });
-    setOffset((prev) => prev + 5);
+    setOffset((prev) => prev + 10);
   };
 
   useEffect(() => {
@@ -55,12 +55,12 @@ const QuotePage = () => {
             </div>
             <div className="p-4">
               <p className="text-gray-600 text-sm">By: {quote.username}</p>
-              <p className="text-gray-500 text-xs">On: {new Date(quote.updatedAt).toLocaleDateString()}</p>
+              <p className="text-gray-500 text-xs">Created At: {new Date(quote.createdAt).toLocaleDateString()}</p>
             </div>
           </div>
         ))}
       </div>
-      {qoutesLeft && (
+      {qoutesLeft && quotes?.length !== 0 && (
         <div className="mt-6 flex justify-center">
           <button
             onClick={fetchQuotes}

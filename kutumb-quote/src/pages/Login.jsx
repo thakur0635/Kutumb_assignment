@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginApiCall } from "../utils/api";
+import {  toast } from 'react-toastify';
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
@@ -12,8 +13,9 @@ const LoginPage = () => {
       const token = await loginApiCall(username, otp);
       localStorage.setItem("token", token);
       navigate("/quotes");
+      toast.success("Login Successfull")
     } catch (error) {
-      alert("Login failed");
+      toast.error("Login failed");
     }
   };
 

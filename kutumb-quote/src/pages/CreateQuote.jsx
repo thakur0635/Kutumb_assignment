@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createQuote, uploadMedia } from "../utils/api";
+import {  toast } from 'react-toastify';
 
 const CreateQuotePage = () => {
     const [text, setText] = useState("");
@@ -13,8 +14,9 @@ const CreateQuotePage = () => {
             const mediaUrl = await uploadMedia(file);
             await createQuote(token, text, mediaUrl);
             navigate("/quotes");
+            toast.success('Quote created successfully')
         } catch (error) {
-            alert("Failed to create quote");
+            toast.error("Failed to create quote");
         }
     };
 
@@ -50,6 +52,12 @@ const CreateQuotePage = () => {
                     disabled={!text || !file}
                 >
                     Create Quote
+                </button>
+                <button
+                    onClick={() => navigate('/quotes')}
+                    className={`w-full py-2 px-4 text-white font-semibold rounded-lg  bg-gray-500 mt-2`}
+                >
+                    Back
                 </button>
             </div>
         </div>
