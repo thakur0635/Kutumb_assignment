@@ -11,7 +11,7 @@ const QuotePage = () => {
   const fetchQuotes = async () => {
     if (!qoutesLeft) return;
     const token = localStorage.getItem("token"); // for API authentication
-    const response = await getQuotesList(token, 10, offset);
+    const response = await getQuotesList(token, 5, offset);
     const newQuotes = response?.data;
     if (newQuotes.length === 0) setQoutesLeft(false);
     setQuotes((prev) => {
@@ -24,7 +24,7 @@ const QuotePage = () => {
         return prev;
       }
     });
-    setOffset((prev) => prev + 10);
+    setOffset((prev) => prev + 5);
   };
 
   useEffect(() => {
